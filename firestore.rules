@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Open access for the private deployment, relying on the app-level Access Key
+    match /{document=**} {
+      allow read, write: if true;
+    }
+
+    // Helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Forms validation
+    function isValidForm(data) {
+      return data.keys().hasAll(['id', 'title', 'type']) 
+        && data.id is string && data.id.size() <= 64
+        && data.title is string && data.title.size() <= 200
+        && data.type in ['LOCAL', 'JOTFORM'];
+    }
+
+    match /forms/{formId} {
+      allow create, update: if isValidForm(request.resource.data) && isValidId(formId);
+    }
+
+    // Booster Data validation
+    function isValidBoosterData(data) {
+      return data.keys().hasAll(['id', 'formId'])
+        && data.id is string && data.id.size() <= 128
+        && data.formId is string && data.formId.size() <= 128;
+    }
+
+    match /booster_data/{submissionId} {
+      allow create, update: if isValidBoosterData(request.resource.data) && isValidId(submissionId);
+    }
+  }
+}

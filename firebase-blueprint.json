@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "Form": {
+      "title": "Recruitment Form",
+      "description": "Metadata for a recruitment form (local or Jotform)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["LOCAL", "JOTFORM"] },
+        "schema": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "type"]
+    },
+    "BoosterData": {
+      "title": "Booster Application Data",
+      "description": "Recruitment specific data for a submission",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "formId": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" },
+        "contactStartedOn": { "type": "string", "format": "date-time" },
+        "fieldOverrides": { "type": "object" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "fields": { "type": "object", "description": "Used only for local submissions" }
+      },
+      "required": ["id", "formId"]
+    },
+    "Settings": {
+      "title": "Application Settings",
+      "description": "Global settings for form ordering and renames",
+      "type": "object",
+      "properties": {
+        "formOrder": { "type": "array", "items": { "type": "string" } },
+        "columnRenames": { "type": "object" },
+        "formRenames": { "type": "object" },
+        "ignoredForms": { "type": "array", "items": { "type": "string" } },
+        "manualForms": { "type": "array", "items": { "type": "string" } },
+        "blacklistForms": { "type": "array", "items": { "type": "string" } },
+        "fieldSettings": { "type": "object" }
+      }
+    }
+  },
+  "firestore": {
+    "/forms/{formId}": {
+      "schema": "Form",
+      "description": "Collection of recruitment forms"
+    },
+    "/booster_data/{submissionId}": {
+      "schema": "BoosterData",
+      "description": "Persistent recruitment data linked to Jotform or Local submissions"
+    },
+    "/settings/global": {
+      "schema": "Settings",
+      "description": "Global application configuration"
+    }
+  }
+}
