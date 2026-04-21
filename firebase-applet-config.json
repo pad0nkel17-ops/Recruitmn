@@ -1,10 +1,45 @@
-{
-  "projectId": "recruitments-c9f0e",
-  "appId": "1:192395705259:web:49a4c0b2e69835da8ff0ee",
-  "apiKey": "AIzaSyA5PKeRottYFyMh1KNYQbd7yCHgUYWUKK4",
-  "authDomain": "recruitments-c9f0e.firebaseapp.com",
-  "firestoreDatabaseId": "(default)",
-  "storageBucket": "recruitments-c9f0e.firebasestorage.app",
-  "messagingSenderId": "192395705259",
-  "measurementId": "G-1ZH1Y73X5N"
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Playfair Display", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --bg: #0A0A0B;
+  --surface: #141416;
+  --border: #2D2D30;
+  --accent: #D4AF37;
+  --text-primary: #E1E1E6;
+  --text-secondary: #94949E;
+  --success: #4ADE80;
+}
+
+@layer base {
+  body {
+    @apply antialiased text-[#E1E1E6] bg-[#0A0A0B];
+    font-family: var(--font-sans);
+  }
+}
+
+.selection-accent *::selection {
+  background-color: rgba(212, 175, 55, 0.3);
+}
+
+/* Custom scrollbar for sophisticated look */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
 }

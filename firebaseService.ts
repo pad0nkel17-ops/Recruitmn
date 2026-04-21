@@ -44,7 +44,7 @@ import { firebaseService, type BoosterData, type Settings as AppSettings, type F
 let config: any = { projectId: 'Firebase' };
 try {
   // @ts-ignore
-  const localConfig = await import('../firebase-applet-config.json');
+  const localConfig = await import(/* @vite-ignore */ '../firebase-applet-config.json');
   config = localConfig.default || localConfig;
 } catch (e) {
   // Use env var or default
