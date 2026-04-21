@@ -1,19 +1,20 @@
 {
   "version": 2,
   "framework": "vite",
-  "buildCommand": "npm run build",
+  "buildCommand": "vite build",
   "outputDirectory": "dist",
-  "routes": [
+  "rewrites": [
     {
-      "src": "/api/(.*)",
-      "dest": "api/index.ts"
+      "source": "/api/jotform-forms",
+      "destination": "/api/jotform.ts"
     },
     {
-      "handle": "filesystem"
+      "source": "/api/jotform-submissions",
+      "destination": "/api/submissions.ts"
     },
     {
-      "src": "/(.*)",
-      "dest": "/index.html"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

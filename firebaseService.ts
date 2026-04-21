@@ -41,7 +41,16 @@ import { motion, AnimatePresence } from 'motion/react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { firebaseService, type BoosterData, type Settings as AppSettings, type Form as AppForm } from './services/firebaseService';
-import firebaseConfig from '../firebase-applet-config.json';
+let config: any = { projectId: 'Firebase' };
+try {
+  // @ts-ignore
+  const localConfig = await import('../firebase-applet-config.json');
+  config = localConfig.default || localConfig;
+} catch (e) {
+  // Use env var or default
+  config = { projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || 'Firebase' };
+}
+const firebaseConfig = config;
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
